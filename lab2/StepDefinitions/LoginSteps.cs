@@ -20,81 +20,42 @@ namespace YourProjectNamespace
             loginPage = new LoginPage(driver);
         }
 
-        [Given(@"I am on the banking website")]
-        public void GivenIAmOnTheBankingWebsite()
+        [Given(@"I am on the swag website")]
+        public void GivenIAmOnTheSwagWebsite()
         {
-            loginPage.OpenLoginPage("https://www.globalsqa.com/angularJs-protractor/BankingProject"); // Замініть URL на реальний URL вашого веб-сайту
+            loginPage.OpenLoginPage("https://www.saucedemo.com"); // Замініть URL на реальний URL вашого веб-сайту
         }
 
-        [When(@"I select ""Login as User"" option")]
-        public void WhenISelectLoginAsUserOption()
+        [Then(@"I'm logging in")]
+        public void WhenLoggingIn()
         {
-            loginPage.ClickLoginAsUser();
+            loginPage.EnterUsernameAndPassword();
         }
 
-        [When(@"I select ""Hermoine Granger"" as a customer")]
-
-        public void WhenISelectHarryPotter() {
-            loginPage.SelectCustomer("Hermoine Granger");
+        [When(@"I'm adding to cart backpack")]
+        public void AddingBackpackToCart()
+        {
+            loginPage.AddItemToCart("add-to-cart-sauce-labs-backpack");
         }
 
-        [When(@"I click Login button")]
-
-        public void WhenIClickLoginButton()
+        [Then(@"I should see backpack in a cart")]
+        public void checkBackpackInCart()
         {
-            loginPage.ClickLogin();
+            string item = loginPage.CheckItemInCart(0);
+            Assert.AreEqual(item, "Sauce Labs Backpack", "No backpack in a cart");
         }
 
-        [Then(@"I should be on the bank's home page")]
-        public void ThenIShouldSeeTheMainDivBlock()
+        [When(@"I'm adding to T-Shirt")]
+        public void AddingTShirtToCart()
         {
-            bool isMainDivVisible = loginPage.IsWelcomeTextVisible();
-            Assert.IsTrue(isMainDivVisible, "The 'mainBox' block is not visible.");
+            loginPage.AddItemToCart("add-to-cart-sauce-labs-bolt-t-shirt");
         }
 
-        [When(@"I click the Withdrawl button")]
-
-        public void WhenIClickWithdraw()
+        [Then(@"I should see T-Shirt in a cart")]
+        public void checkTShirtInCart()
         {
-            loginPage.OpenWithdrawMenu();
-        }
-
-        [When(@"I enter the withdrawal amount as full sum / 2")]
-        public void EnterAmount()
-        {
-            loginPage.EnterAmount();
-        }
-
-        [When(@"I click the ""Confirm Withdrawal"" button")]
-        public void ConfirmWithdraw()
-        {
-            loginPage.ClickWithdraw();
-        }
-
-        [Then(@"I should see a success message")]
-        public void ThenIShouldSeeASucseedMessage()
-        {
-            loginPage.IsSucseedTextVisible();
-        }
-
-        [When(@"I enter the withdrawal amount as full sum x 2")]
-
-        public void EnterMoreAmount()
-        {
-            loginPage.EnterMoreAmount();
-        }
-
-        [When(@"I click the ""Confirm Withdrawal"" button again")]
-
-        public void ClickWithdrawAgain()
-        {
-            loginPage.ClickWithdraw();
-        }
-
-        [Then(@"I should see an error message")]
-        public void ThenIShoulSeeAnError()
-        {
-            loginPage.IsErrorTextVisible();
+            string item = loginPage.CheckItemInCart(1);
+            Assert.AreEqual(item, "Sauce Labs Bolt T-Shirt", "No T-Shirt in a cart");
         }
 
         [Then(@"I should close Chrome")]
